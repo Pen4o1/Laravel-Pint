@@ -21,8 +21,12 @@ jobs:
           tools: composer:v2
           coverage: none
 
+      - name: Install Fileinfo Extension (for Ubuntu)
+        if: runner.os == 'Linux'
+        run: sudo apt-get install php8.3-fileinfo
+
       - name: Install Dependencies
-        run: composer install --prefer-dist --no-progress --no-suggest
+        run: composer install --prefer-dist --no-progress
 
       - name: Dump Autoload
         run: composer dump-autoload

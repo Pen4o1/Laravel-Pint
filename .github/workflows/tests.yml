@@ -7,8 +7,8 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-latest, windows-latest]
-        php: ['8.3.9', '8.3.9']
+        os: [ubuntu-latest, macos-latest]
+        php: ['8.2', '8.3.9']
 
     steps:
       - name: Checkout Repository
@@ -22,7 +22,7 @@ jobs:
           coverage: none
 
       - name: Install Dependencies
-        run: composer install --prefer-dist --no-progress --no-suggest
+        run: composer install --prefer-dist --no-progress
 
       - name: Dump Autoload
         run: composer dump-autoload
@@ -35,6 +35,7 @@ jobs:
 
       - name: Create SQLite Database
         run: |
+          mkdir -p database
           touch database/database.sqlite
           chmod 777 database/database.sqlite
 
